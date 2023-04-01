@@ -1,0 +1,1 @@
+from miranda.framework.run import *
