@@ -10,6 +10,9 @@ setuptools.setup(
     license="GNU",
     url="https://github.com/mitosisX/Miranda",
     packages=setuptools.find_packages(),
+    package_data={
+        'miranda.framework.handle.theming.misc': ['themes/**']
+    },
     install_requires=[
         'PySide6',
         'qdarkstyle',
