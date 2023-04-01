@@ -17,6 +17,8 @@ used to activate the feature.
 
 label.setBuddy(textEdit) allows the framework to use the & as an accelerator
 and not to be treated as an ordinary character.
+
+label.setWordWrap(bool) makes the label multiline
 """
 
 class Label(QLabel):

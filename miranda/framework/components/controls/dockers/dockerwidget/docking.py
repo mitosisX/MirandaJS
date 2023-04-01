@@ -9,8 +9,6 @@ class Docker(QDockWidget):
         self.widget = QWidget()
         self.setWidget(self.widget)
         
-        self.setMagneticAreas()
-        
     """
     we want PyQt to save and restore the dock widget’s
     size and position, and since there could be any number of dock widgets, PyQt
@@ -35,11 +33,29 @@ class Docker(QDockWidget):
     TopDockWidgetArea
     BottomDockWidgetArea
     AllDockWidgetAreas
-    DockWidgetArea_Mask  
+    DockWidgetArea_Mask
+    
+    Set the allowed areas for a QDockWidget based on a list of areas.
+        Multiple strings can be passed to set the allowed areas accordingly.
+        
+        Parameters:
+            areas (list): list indicating the sides where the QDockWidget is allowed to be docked.
+                        Valid strings are "top", "bottom", "left", and "right".
     """
-    def setMagneticAreas(self, *areas):
-        self.setAllowedAreas(Qt.LeftDockWidgetArea|
-                            Qt.RightDockWidgetArea)
+    def setMagneticAreas(self, areas):
+        allowed_areas = Qt.NoDockWidgetArea
+        
+        for area in areas:
+            if area == "top":
+                allowed_areas |= Qt.TopDockWidgetArea
+            elif area == "bottom":
+                allowed_areas |= Qt.BottomDockWidgetArea
+            elif area == "left":
+                allowed_areas |= Qt.LeftDockWidgetArea
+            elif area == "right":
+                allowed_areas |= Qt.RightDockWidgetArea
+                
+        self.setAllowedAreas(allowed_areas)
         
     def setTitle(self, title):
         self.setWindowTitle(title)
@@ -50,6 +66,5 @@ class Docker(QDockWidget):
     def setSize(self, width, height):
         self.resize(width, height)
         
-    def addChild(self, child):
-        
-        self.setWidget()
+    def setChild(self, child):
+        self.setWidget(child)
