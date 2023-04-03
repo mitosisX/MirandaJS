@@ -1,7 +1,6 @@
-from miranda.framework.kernel.engine.app_engine import Engine
+# Yeah, I know... This looks half done. But hey, it's working right?
 
-# app_code = open('framework\scripts\miranda.js', 'r').read()
+from miranda.framework.core.engine.app_engine import Engine
 
 engine = Engine()
 engine.start()
-# engine.execute(js_code)

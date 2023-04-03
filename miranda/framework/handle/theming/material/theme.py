@@ -1,7 +1,7 @@
 from qt_material import apply_stylesheet
 from qt_material import list_themes
 
-from miranda.framework.kernel.runner.app import App
+from miranda.framework.core.runner.app import App
 
 class MaterialStyle:
     def __init__(self):

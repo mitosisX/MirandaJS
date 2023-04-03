@@ -10,7 +10,7 @@ from miranda.framework.components.controls.dockers.dockerwidget.docking import D
 
 # Tis is the class that controls the whole application
 # event loop
-from miranda.framework.kernel.runner.app import App
+from miranda.framework.core.runner.app import App
  
 from miranda.framework.components.controls.widgets.button import Button
 from miranda.framework.components.controls.widgets.checkbox import CheckBox

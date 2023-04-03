@@ -1,7 +1,7 @@
 import qtmodern.styles
 import qtmodern.windows
 
-from miranda.framework.kernel.runner.app import App
+from miranda.framework.core.runner.app import App
 
 class ModernStyle:
     def __init__(self):

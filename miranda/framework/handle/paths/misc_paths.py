@@ -23,3 +23,11 @@ class Paths:
         return os.path.join(
             cls.project_path, path,
             resource.to_string().value if type(resource) == base.PyJsString else resource)
+        
+    @classmethod
+    def dot_path(cls, dot_path):
+        """
+        Converts a path string with dot notation into a proper path.
+        For example, converts "my.folder.name" to "my/folder/name".
+        """
+        return dot_path.replace(".", "/")

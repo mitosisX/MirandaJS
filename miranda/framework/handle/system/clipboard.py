@@ -1,7 +1,7 @@
 # clipboard = QApplication.clipboard()
 # clipboard.setText("I've been clipped!")
 # clipboard.text()
-from miranda.framework.kernel.runner.app import App
+from miranda.framework.core.runner.app import App
 
 class Clipboard:
     app = App.app.clipboard()

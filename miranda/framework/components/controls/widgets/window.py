@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 from miranda.framework.components.controls.dockers.toolbar.toolbar import Toolbar
 from miranda.framework.components.controls.dockers.dockerwidget.docking import Docker
 
-from miranda.framework.kernel.runner.app import App
+from miranda.framework.core.runner.app import App
 from PySide6.QtGui import QAction, QScreen, QIcon
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QUrl

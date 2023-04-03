@@ -9,9 +9,12 @@ from js2py import base
 import sys
 import os
 import sqlite3
+from faker import Faker
+
+import miranda # importing like this to get the root folder of the module
 
 # The application's mainloop
-from miranda.framework.kernel.runner.app import App
+from miranda.framework.core.runner.app import App
 from miranda.framework.components.controls.dockers.menu.menuitem import MenuItem
 from miranda.framework.components.controls.dockers.toolbar.toolbar_button import ToolbarButton
 from miranda.framework.components.controls.dockers.toolbar.toolbar import Toolbar
@@ -82,10 +85,20 @@ class Engine:
         return cls._instance
     
     def __init__(self):
+        
+        self.app = App() # holds the PySide6 application
+        self.plugin_manager = PluginManager()
+        
+        self.miranda_root_dir = miranda.__path__[0] # miranda path in site-packages
+        
+        self.engine = None #holds the js2py engine
+        
         self.__pyObjects = {
             'scripts': Paths.scripts,
             'images': Paths.images,
+            '__js_execute': self.execute,
             '__file': File,
+            'fake': Faker(),
             # 
             # 
             # 
@@ -123,7 +136,7 @@ class Engine:
             'alert': MessageBox,
             'Timer': Timer,
             'cmd': CMD,
-            'Clipboard': Clipboard,
+            '__clipboard': Clipboard,
             'SysTray': Tray,
             
             'DDialog': DDialog,
@@ -149,12 +162,6 @@ class Engine:
             # 'TestMenu': TemplateGenerator
         }
         
-        self.app = App() # holds the PySide6 application
-        self.plugin_manager = PluginManager()
-        
-        # self.src = os.path.join(os.getcwd())
-        
-        self.engine = None #holds the js2py engine
         # print('In engine')
         
     # Init the JavaScript engine
@@ -167,26 +174,42 @@ class Engine:
         1) Initialize plugins first
             * Set them to the dict
         2) Set the dict to the JS engine
-        3) Execute any core JS files for the framework, ie, Miranda 
+        3) Execute any vital JS files for the framework, ie, miranda.js
         4) Execute main.js
         
     """
     def start(self):            
         self.init_plugins() # Has to load first coz we don't walk the engine to run before with only our py objects
         self.init_JsEngine() # Set the py objects to the engine
+        self.execute_vital_js() # Set the py objects to the engine
         self.execute_main_js() # Set the py objects to the engine
         self.set_eventloop() # Set the PySide6 mainloop running. VITAL!!!!!!
         
+    def execute_vital_js(self):
+        vital_files = [
+            'framework.scripts.miranda',
+            ]
+        
+        for vital_file in vital_files:
+            clean_path_file = os.path.join(self.miranda_root_dir, Paths.dot_path(vital_file) + '.js')
+            self.execute(clean_path_file)
+                
+                    
     """
     For executing any incoming JavaScript code
+    
+    Has to redesigned to determine whether or not the framework is being run after freeze or in "IDE"
     """
     def execute(self, script):
         # print('Executing')
-        self.engine.execute(script)
+        with open(script) as js_script:
+            js_content = js_script.read()
+            
+            self.engine.execute(js_content)
     
     def execute_main_js(self):
-        js_code = open(Paths.scripts('main.js'), 'r').read()
-        self.execute(js_code)
+        path_to_main = Paths.scripts('main.js')
+        self.execute(path_to_main)
     
     """
     param: objects 
@@ -211,13 +234,3 @@ class Engine:
         self.plugin_manager.activate_plugins()
         
         self.set_objects(self.plugin_manager.plugin_pyobjects())
-        
-    def images(self, path):
-        return os.path.join(
-            self.src, 'images',
-            path.to_string().value if type(path) == base.PyJsString else path)
-
-    def scripts(self, path):
-        return os.path.join(
-            self.src, 'js',
-            path.to_string().value if type(path) == base.PyJsString else path)

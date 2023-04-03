@@ -11,14 +11,16 @@ setuptools.setup(
     url="https://github.com/mitosisX/Miranda",
     packages=setuptools.find_packages(),
     package_data={
-        'miranda.framework.handle.theming.misc': ['themes/**']
+        'miranda.framework.handle.theming.misc': ['themes/**'],
+        'miranda.framework': ['scripts/**']
     },
     install_requires=[
         'PySide6',
         'qdarkstyle',
         'qt_material',
         'qrcode',
-        'win11toast'
+        # 'win11toast',
+        'Faker'
     ],
     classifiers=[
         'Programming Language :: Python :: 3',

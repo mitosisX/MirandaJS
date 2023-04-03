@@ -1,6 +1,6 @@
 from PySide6.QtCore import QResource
 
-from miranda.framework.kernel.runner.app import App
+from miranda.framework.core.runner.app import App
 import os
 
 class MiscellaneousStyle:
