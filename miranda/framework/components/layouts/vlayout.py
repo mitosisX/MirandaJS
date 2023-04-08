@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QVBoxLayout
-
+from miranda.framework.components.base.base_layout import BaseLayout
 """
 OLayout is simply an Orientational Layout (OLayout)
 Either Horizontal or Vertical

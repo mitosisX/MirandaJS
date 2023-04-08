@@ -16,6 +16,7 @@ import miranda # importing like this to get the root folder of the module
 # The application's mainloop
 from miranda.framework.core.runner.app import App
 from miranda.framework.components.controls.dockers.menu.menuitem import MenuItem
+# from miranda.framework.components.controls.dockers.menubar.submenu import SubMenu
 from miranda.framework.components.controls.dockers.toolbar.toolbar_button import ToolbarButton
 from miranda.framework.components.controls.dockers.toolbar.toolbar import Toolbar
 from miranda.framework.components.controls.dockers.dockerwidget.docking import Docker
@@ -62,7 +63,7 @@ from miranda.framework.handle.system.notifcation import Notification
 from miranda.framework.handle.system.tray import Tray
 
 from miranda.framework.components.controls.dockers.menu.menu import Menu
-from miranda.framework.components.controls.dockers.menu.menuitem import MenuItem
+from miranda.framework.components.controls.dockers.menubar.menubar_item import MenuItem
 from miranda.framework.components.controls.dockers.menubar.menubar import Menubar
 
 from miranda.framework.components.controls.widgets.containers.tab import Tab
@@ -87,12 +88,13 @@ class Engine:
     def __init__(self):
         
         self.app = App() # holds the PySide6 application
-        self.plugin_manager = PluginManager()
+        self.plugin_manager = PluginManager() # The code that init all user plugins
         
-        self.miranda_root_dir = miranda.__path__[0] # miranda path in site-packages
+        self.miranda_root_dir = Paths.miranda_sitepackage_path()
         
         self.engine = None #holds the js2py engine
         
+        # All python objects to be used in JS
         self.__pyObjects = {
             'scripts': Paths.scripts,
             'images': Paths.images,
@@ -125,9 +127,10 @@ class Engine:
             # 
             # 
             'Theme': Theme,
+            'Menubar': Menubar,
             'Menu': Menu,
             'MenuItem': MenuItem,
-            'Menubar': Menubar,
+            # 'SubMenu': SubMenu,
             'Dock': Docker,
             'Toolbar': Toolbar,
             'ToolbarButton': ToolbarButton,
@@ -172,10 +175,11 @@ class Engine:
     """
     Sequence:
         1) Initialize plugins first
-            * Set them to the dict
+            * Set them to the __pyObject dict
         2) Set the dict to the JS engine
         3) Execute any vital JS files for the framework, ie, miranda.js
         4) Execute main.js
+        5) Eventloop
         
     """
     def start(self):            
@@ -185,6 +189,7 @@ class Engine:
         self.execute_main_js() # Set the py objects to the engine
         self.set_eventloop() # Set the PySide6 mainloop running. VITAL!!!!!!
         
+    # All core js code for the Miranda framework
     def execute_vital_js(self):
         vital_files = [
             'framework.scripts.miranda',
@@ -207,13 +212,14 @@ class Engine:
             
             self.engine.execute(js_content)
     
+    # The user's main.js entry point code
     def execute_main_js(self):
         path_to_main = Paths.scripts('main.js')
         self.execute(path_to_main)
     
     """
     param: objects 
-    type: str
+    type: dict
     
     Used for plugin development, setting python objects to the JavaScript engine
     """

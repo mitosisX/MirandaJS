@@ -1,23 +1,33 @@
 import os
 from js2py import base
 
+import miranda # importing like this to get the root folder of the module
+
 class Paths:
-    project_path = os.getcwd() # Better to be static for easy access in multiple locations
+    project_path = os.getcwd() # Static for easy access in multiple locations
     
+    # The path to the user's project scripts dir
     @classmethod
     def scripts(cls, resource):
         return cls.path_res_joiner('js', resource)
 
+    # The path to the user's project images dir
     @classmethod
     def images(cls, resource):
         return cls.path_res_joiner('images', resource)
         
+    # The path to the user's project plugins dir
     @classmethod
     def plugins(cls):
         return cls.path_res_joiner(Paths.project_path, 'plugins')
+    
+    # The path to the installed Miranda module
+    @classmethod
+    def miranda_sitepackage_path(cls):
+         return miranda.__path__[0] # miranda path in site-packages
             
-    # When the below methods are called from JS, the arguments no longer gets treated
-    # as a string, rather some js2py type and that's why I had to write the conditional setting
+    # When the below method is called from JS, the arguments no longer get treated
+    # as a string, rather some js2py type, and that's the whole reason the conditional initialization
     @classmethod
     def path_res_joiner(cls, path, resource):
         return os.path.join(

@@ -1,9 +1,16 @@
 from PySide6.QtWidgets import QMenuBar
 from miranda.framework.components.controls.dockers.menu.menuitem import MenuItem
 
+
+"""
+Structure for creating a Menubar
+    Menubar
+        - Menu                  (File, Edit, View, Help)
+            MenuItems           (New File, Open File, Exit)
+"""
 class Menubar(QMenuBar):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent = None)
 
     # menus
     # type: Menu
@@ -13,15 +20,6 @@ class Menubar(QMenuBar):
     def addMenuItems(self, *menus):
         for menu in menus:
             self.addMenu(menu)
-    """
-    Build menu from JSON template structure
-    """
-    def fromTemplate(self, template):
-        menus = self.create_menu(template)
-        
-        for menu in menus:
-            self.addAction(menu)
-        # self.addItem(menus)
             
     # This method isn't working, total waste of time
     def create_menu(self, menu_structure):

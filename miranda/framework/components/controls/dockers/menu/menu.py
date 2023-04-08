@@ -1,18 +1,27 @@
 from PySide6.QtWidgets import QMenu
-from miranda.framework.components.controls.dockers.menu.menuitem import MenuItem
 
+from miranda.framework.components.controls.dockers.menubar.menubar_item import MenuItem
+
+# Contains an arrow on it's side to show that it contains submenus
 class Menu(QMenu):
-    def __init__(self, text = None):
-        super().__init__(text)
+    def __init__(self, title = None, parent = None):
+        super().__init__(title = title, parent = parent)
 
     # menuitems
-    # type: MenuItem
-    def addItems(self, *menuitems):
-        for menuitem in menuitems:
-            self.addAction(menuitem)
+    # type: Menu
+    def addMenuItems(self, *menus):
+        for menu in menus:
+           self.__determine_menutype_add_action(menu)
             
-    def addItem(self, menuitem):
-        self.addAction(menuitem)
+    def addMenuItem(self, menu):
+        self.__determine_menutype_add_action(menu)
+        
+    # To avoid redundancy in addMenuItem and addMenuItems, this functions shall handle all logic
+    def __determine_menutype_add_action(self, menu):
+        if isinstance(menu, Menu):
+            self.addAction(menu.menuAction())
+        elif isinstance(menu, MenuItem):
+            self.addAction(menu)
             
     """
     Build menu from JSON template structure
@@ -24,7 +33,7 @@ class Menu(QMenu):
             self.addAction(menu)
         # self.addItem(menus)
             
-    # This method isn't working, total waste of time
+    # This method isn't working
     def create_menu(self, menu_structure):
         items = []
         for item in menu_structure:

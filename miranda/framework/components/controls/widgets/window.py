@@ -91,11 +91,12 @@ class Window(QMainWindow):
     def addToolbar(self, toolbar: Toolbar):
         self.addToolBar(toolbar)
 
+    # Unnecessary, yeah! I know! I just disliked having to CamelCase to the end ;-).. I know it doesn't make sense 
     def setMenubar(self, menu):
         self.setMenuBar(menu)
         
     """
-    Dock: namespace - core.dockers.dockwidgets.docker.Dock
+    Dock: namespace - components.controls.dockers.dockerwidget.docking
     
     The Dock can accept parent in it's constructor, and using this makes the dock
     take up the whole are as this essentially makes the "central widget" of its parent

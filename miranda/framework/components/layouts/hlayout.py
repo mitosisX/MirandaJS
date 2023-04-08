@@ -1,3 +1,4 @@
+from miranda.framework.components.base.base_layout import BaseLayout
 from PySide6.QtWidgets import QHBoxLayout
 
 """

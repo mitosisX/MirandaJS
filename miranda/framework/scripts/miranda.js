@@ -27,8 +27,8 @@ const app = {
     __iPopup(parent, title, message);
   },
   // question popup
-  qPopup(parent, title, message) {
-    __qPopup(parent, title, message);
+  qPopup(parent, title, message, buttons) {
+    __qPopup(parent, title, message, buttons);
   },
   // warning popup
   wPopup(parent, title, message) {

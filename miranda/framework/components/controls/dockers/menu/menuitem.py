@@ -1,7 +1,7 @@
-from PySide6.QtGui import QAction
+from PySide6.QtWidgets import QMenu
 from PySide6.QtGui import QPixmap
 
-class MenuItem(QAction):
+class MenuItem(QMenu):
     def __init__(self, title = None):
         super().__init__(title)
 
@@ -12,7 +12,11 @@ class MenuItem(QAction):
         pixmap = QPixmap(path)
         self.setIcon(pixmap)
         
-    # namespace: core.controls.dockers.menu.menu
-    # Receives object of type Menu
-    def addMenuItem(self, menu):
-        self.setIcon(menu)
+    def addSubmenu(self, menuitem):
+        self.addAction(menuitem)
+            
+    # namespace: core.controls.dockers.menu.menuitems
+    # Receives object of type Menu, basically another QAction
+    def addSubmenus(self, *menuitems):
+        for menuitem in menuitems:
+            self.addAction(menuitem)

@@ -1,6 +1,9 @@
 from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout
 
 """
+NO LONGER USED!!!
+- Simply replaced this with the explicit layouts; hlayout and vlayout
+
 OLayout is simply an Orientational Layout (OLayout)
 Either Horizontal or Vertical
 """
