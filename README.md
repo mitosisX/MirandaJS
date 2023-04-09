@@ -1,6 +1,6 @@
 # MirandaJS
 Miranda is a wrapper for the cross-platform PySide6 GUI library. It allows developers to create applications for Windows, macOS, and Linux using JavaScript
-
+<hr>
 Hello everyone,
 
 I am excited to share with you a project that I have been working on for quite some time now. It is an open-source project that aims to develop a cross-platform JavaScript desktop development framework in Python.
