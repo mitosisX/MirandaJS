@@ -22,7 +22,8 @@ class Window(QMainWindow):
         
         # self.setGeometry(500, 100, 500, 500)
         
-        # self.setSize(width, height)
+        self.setSize(500, 300)
+        
         self.center()
         
         self.setTitle(title)

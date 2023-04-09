@@ -21,6 +21,7 @@ from miranda.framework.components.controls.dockers.toolbar.toolbar_button import
 from miranda.framework.components.controls.dockers.toolbar.toolbar import Toolbar
 from miranda.framework.components.controls.dockers.dockerwidget.docking import Docker
 
+from miranda.framework.components.controls.widgets.widget import Widget
 from miranda.framework.components.controls.widgets.button import Button
 from miranda.framework.components.controls.widgets.checkbox import CheckBox
 from miranda.framework.components.controls.widgets.calendar import Calendar
@@ -105,6 +106,7 @@ class Engine:
             # 
             # 
             'Window': Window,
+            'Widget': Widget,
             'Button': Button,
             'Calendar': Calendar,
             'CheckBox': CheckBox,

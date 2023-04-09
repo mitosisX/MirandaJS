@@ -1,4 +1,10 @@
     To-Do list
 
-1. Replace explicit use of PySide with Qt.py
-2. 
+1. Replace explicit use of PySide6 with qt.py for easy integration with various Qt frameworks
+
+Such emptiness!
+
+
+    Features
+
+1. 

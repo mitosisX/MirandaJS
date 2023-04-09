@@ -3,7 +3,7 @@ qdarkstyle
 qt_material
 multipledispatch
 qrcode
-win11toast
+# win11toast
 
 to be implemented
 # pip install pyside2-fluent-widgets
