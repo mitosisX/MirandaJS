@@ -1,11 +1,16 @@
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import QSystemTrayIcon
 
-# Remember to call show() for display
-        
+
+"""
+It is important to set Tray icon before use. Notice the image not set to None
+
+Remember to call show() for display
+"""
 class Notification(QSystemTrayIcon):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, image):
+        super().__init__(QIcon(image))
+        self.setVisible(True)
     
     def onShown(self, func):
         self.clicked.activated(lambda:func(self))
@@ -13,12 +18,19 @@ class Notification(QSystemTrayIcon):
     def onClick(self, func):
         self.clicked.messageClicked(lambda:func(self))
         
-    def setMessage(self, _title, _message, _icon, _duration):
-        icon = QIcon(_icon)
+    def setMessage(self, title, message, icon, duration):        
+        icon_map = {
+            "noicon": QSystemTrayIcon.NoIcon,
+            "information": QSystemTrayIcon.Information,
+            "warning": QSystemTrayIcon.Warning,
+            "critical": QSystemTrayIcon.Critical,
+        }
         
-        self._tray_icon.showMessage(
-                _title,
-                _message,
-                icon,
-                _duration,
+        icon_value = icon_map.get(icon.lower(), QSystemTrayIcon.Information)
+        
+        self.showMessage(
+                title,
+                message,
+                icon_value,
+                duration,
             )

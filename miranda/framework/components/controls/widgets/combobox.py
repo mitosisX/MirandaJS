@@ -28,8 +28,13 @@ class ComboBox(QComboBox):
     This displays an image and text on the combobox
     [images('image'), 'text']
     """
+    def addImageItem(self, data):
+        icon = QIcon(data[0])
+        text = data[1]
 
-    def addImageItems(self, *data):
+        self.addItem(icon, text)
+
+    def addImageItems(self, data):
         for values in data:
             icon = QIcon(values[0])
             text = values[1]
