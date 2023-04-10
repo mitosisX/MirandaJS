@@ -1,6 +1,9 @@
 # MirandaJS
 Miranda is a wrapper for the cross-platform PySide6 GUI library. It allows developers to create applications for Windows, macOS, and Linux using JavaScript
 
+<b>The framework uses Python (make sure it's installed)</b> as it wraps around a popular Python framework; PySide6.
+
+To get started, use <b>python setup.py install</b> to install the framework and run the examples from https://github.com/mitosisX/miranda-demos
 MIT License
 <hr>
 Hello everyone,
@@ -16,5 +19,3 @@ If you have any experience in Python or JavaScript, or any related fields, and y
 I understand that this project may not be as professional as some of the other projects out there, but I assure you that it is a worthwhile endeavor. Together, we can make this framework a reliable and efficient tool for developers everywhere.
 
 Thank you for considering this invitation, and I hope to see some of you contributing to this project soon.
-
-<b>For a quick start consider trying put the examples</b> https://github.com/mitosisX/miranda-demos
